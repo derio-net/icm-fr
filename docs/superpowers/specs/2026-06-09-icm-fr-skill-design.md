@@ -1,6 +1,6 @@
 # icm-fr — Design Spec
 
-*Date: 2026-06-09 · Status: Draft (brainstorming output, pre-plan)*
+*Date: 2026-06-09 · Status: Complete — shipped to github.com/derio-net/icm-fr*
 
 ## Summary
 
@@ -178,7 +178,7 @@ acceptance bar above.
 
 | Plan | Repo | Status | Notes |
 |------|------|--------|-------|
-| 2026-06-09-icm-fr-skill | `derio-net/icm-fr` | `2026-06-09-icm-fr-skill` | — |
+| 2026-06-09-icm-fr-skill | `derio-net/icm-fr` | Complete | All 5 phases shipped; published 2026-06-09 |
 
 ## Open questions
 

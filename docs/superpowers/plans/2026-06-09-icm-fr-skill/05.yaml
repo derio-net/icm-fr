@@ -26,14 +26,16 @@ tasks:
 state:
   steps:
     P5.T1.S1:
-      state: ' '
-      ticked_at: null
+      state: x
+      ticked_at: '2026-06-09T21:51:56+00:00'
       note: null
     P5.T1.S2:
-      state: ' '
-      ticked_at: null
+      state: x
+      ticked_at: '2026-06-09T21:51:56+00:00'
       note: null
   completion:
-    at: null
-    note: null
+    at: '2026-06-09T21:52:13+00:00'
+    note: Published to github.com/derio-net/icm-fr (public, MIT). Operator created
+      the repo (bot lacked org repo-creation rights); pushed main, set topics, conversions/
+      kept as in-repo examples.
     observed_prs: []
