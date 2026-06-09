@@ -34,12 +34,23 @@ contract sections — all present.
    documented scope cut. Flagged here so a reviewer of the workspace alone (without
    the gap report) still sees it.
 
+### Note — cross-run carry-over (by design, but call it out)
+
+4. **`01_select`'s only per-run input is a cross-run carry-over**, not a run brief.
+   It reads `../04_assemble/output/today-report.md` — the *previous run's* report — to
+   skip already-covered topics. *severity: informational.* It is a legitimate
+   `(working)` input (real producer: 04's `output/`, from the prior run) and is
+   **absent on the first run**, where the contract correctly treats it as a fresh run.
+   Worth naming because it is the fragile input: this pipeline is trigger-driven (by
+   date), so there is no user brief, and a reviewer should confirm the first-run
+   behaviour is handled — it is. Not a defect.
+
 ### Clean on
 
-- **Layer 3 / Layer 4 tagging** — every input is tagged; the run carry-over
-  (`01_select` ← `../04_assemble/output/today-report.md`) is correctly `(working)`
-  and names a real producing location.
-- **No dangling working inputs** — every `(working)` path resolves to a producer.
+- **Layer 3 / Layer 4 tagging** — every input is correctly tagged (incl. the
+  cross-run carry-over in finding 4).
+- **No dangling working inputs** — every `(working)` path resolves to a producer
+  (within-run `output/`, `shared/`, or the cross-run carry-over).
 - **No cross-stage writes** — each stage writes only its own `output/` (the 02
   cancellation stub writes to 02's own `output/`).
 - **Harness neutrality** — no contract names a search tool, browser harness, or
@@ -49,6 +60,7 @@ contract sections — all present.
 
 ## Verdict
 
-Structurally clean; two stage-granularity suggestions and one documented capability
-cut. Nothing requiring a fix before use. The suggestions are exactly the kind of
-"stage 1" direction-setting edit the methodology expects a human to make.
+Structurally clean; two stage-granularity suggestions and two informational notes (a
+documented capability cut and the cross-run carry-over). Nothing requiring a fix
+before use. The suggestions are exactly the kind of "stage 1" direction-setting edit
+the methodology expects a human to make.

@@ -65,10 +65,16 @@ Follow the structure in structure.md. Match the tone in voice.md.
 - **`## Inputs`** — one line per input. Each line is tagged `(working)` for Layer 4
   (per-run artifacts) or `(reference)` for Layer 3 (stable rules). This split is the
   control point of the whole system. A `(working)` input is usually the previous
-  stage's `output/`, but the **first stage's working input is the run's brief** —
-  the per-run material the user supplies (e.g. `setup/brief.md` or a provided
-  topic). It is `(working)`, not `(reference)`, because it changes every run, even
-  though it does not live in an `output/` folder.
+  stage's `output/`. The **first stage's** per-run input is whatever enters the
+  pipeline each run, and it is `(working)` even though it does not live in an
+  `output/` folder. It takes one of three shapes:
+  - a **run brief** the user supplies (e.g. `setup/brief.md`, a provided topic), or
+  - a **trigger** (the run is driven by the date / a schedule, with no explicit
+    brief — as in a daily report), often paired with
+  - a **cross-run carry-over**: the previous run's output, read for incremental work
+    (e.g. last run's report, to skip already-covered items). This is legitimately
+    `(working)`, names a real producer (that stage's `output/`, from the prior run),
+    and is **absent on the first run** — the contract must say what happens then.
 - **`## Process`** — what the stage does, in plain prose or numbered steps.
 - **`## Outputs`** — one line per artifact, `name -> output/`.
 

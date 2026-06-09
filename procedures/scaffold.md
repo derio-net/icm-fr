@@ -60,8 +60,10 @@ Run `python3 icm-core/validate.py <output-path>`. Fix the **output** until it ex
 0 (never weaken the validator to pass). The validator checks structure only —
 self-check the Inputs `(reference)`/`(working)` tagging and Outputs format by hand.
 In particular, **every `(working)` input must name a real producing location** — a
-prior stage's `output/`, an archived carry-over under `shared/`, or the run brief —
-never a bare filename with no producer. Locate where this pipeline's per-run input
+prior stage's `output/`, an archived carry-over under `shared/`, the run brief, or a
+prior run's output (a cross-run carry-over for incremental pipelines, which may be
+absent on the first run — say what happens then) — never a bare filename with no
+producer. Locate where this pipeline's per-run input
 enters (a user-supplied brief, or the previous run's output) and make sure exactly
 one place introduces it. Then hand the workspace to the user to fill in `_config/`
 via the questionnaire and run stage 01.
