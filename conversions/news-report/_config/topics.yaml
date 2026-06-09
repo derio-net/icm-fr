@@ -1,0 +1,70 @@
+topics:
+  - id: ai-regulation
+    title: AI Regulation
+    description: Global regulatory frameworks for AI — legislation, enforcement, compliance, and governance
+    priority: high
+    keywords:
+      - "EU AI Act enforcement 2026"
+      - "AI regulation news"
+      - "artificial intelligence legislation"
+      - "AI governance policy"
+    rss_feeds:
+      - "https://feeds.bbci.co.uk/news/technology/rss.xml"        # BBC Technology — centrist UK, solid EU Act coverage
+      - "https://www.theguardian.com/uk/technology/rss"           # The Guardian Technology — left-liberal UK, strong AI policy
+      - "https://www.politico.eu/section/technology/feed/"        # Politico EU — Brussels-insider, essential for regulatory detail
+      - "https://theintercept.com/national-security/feed/"        # The Intercept — left-independent, critical on AI governance
+      - "https://www.euractiv.com/section/digital/feed/"          # Euractiv Digital — Brussels-insider, AI Act specialists
+      - "https://euobserver.com/feed"                             # EUobserver — independent EU journalism, institutional coverage
+      - "https://ecfr.eu/feed/"                                   # ECFR — European think tank, policy analysis in English
+
+  - id: eu-us-geopolitics
+    title: EU-US Relations
+    description: Trade, defense, diplomacy, and regulatory friction between the EU and US
+    priority: high
+    keywords:
+      - "EU US relations 2026"
+      - "transatlantic trade tensions"
+      - "NATO Europe defense spending"
+      - "EU US tariffs"
+    rss_feeds:
+      - "https://www.politico.eu/feed/"                           # Politico EU — definitive EU institutional perspective
+      - "https://www.aljazeera.com/xml/rss/world.xml"             # Al Jazeera World — non-Western international angle
+      - "https://feeds.bbci.co.uk/news/world/rss.xml"             # BBC World — centrist UK, balanced transatlantic coverage
+      - "https://www.spiegel.de/international/index.rss"          # Der Spiegel International — German centre-left, strong EU lens
+      - "https://www.euractiv.com/feed/"                          # Euractiv — definitive EU policy tracker, all topics
+      - "https://euobserver.com/feed"                             # EUobserver — independent Brussels journalism
+      - "https://ecfr.eu/feed/"                                   # ECFR — European foreign policy think tank
+      - "https://www.bruegel.org/feed"                            # Bruegel — EU economics/trade think tank, Brussels
+
+  - id: iran-war
+    title: Iran War
+    description: Military conflict, escalation, and diplomatic developments involving Iran — Israel, US, regional proxies
+    priority: high
+    keywords:
+      - "Iran war 2026"
+      - "Iran Israel military"
+      - "Iran US conflict"
+      - "Iran nuclear strike"
+    rss_feeds:
+      - "https://www.aljazeera.com/xml/rss/middleeast.xml"        # Al Jazeera Middle East — regional focus, pro-Palestinian lean
+      - "https://www.aljazeera.com/xml/rss/all.xml"               # Al Jazeera All — catch-all for breaking items
+      - "https://feeds.bbci.co.uk/news/world/rss.xml"             # BBC World — centrist, strong Iran conflict reporting
+      - "https://www.theguardian.com/world/rss"                   # The Guardian World — left-liberal UK, solid international conflict
+      - "https://euobserver.com/feed"                             # EUobserver — European angle on Middle East conflict
+      - "https://ecfr.eu/feed/"                                   # ECFR — European foreign/security policy analysis
+
+  - id: epstein-files
+    title: Epstein Files
+    description: Release of Jeffrey Epstein documents, client list developments, related investigations and political fallout
+    priority: high
+    keywords:
+      - "Epstein files 2026"
+      - "Epstein client list"
+      - "Epstein documents release"
+      - "Epstein investigation 2026"
+      - "Epstein alive"
+    rss_feeds:
+      - "https://feeds.washingtonpost.com/rss/politics"           # WaPo Politics — centrist-liberal US, broken multiple Epstein stories
+      - "https://feeds.washingtonpost.com/rss/national"           # WaPo National — catches DOJ/investigation angles
+      - "https://theintercept.com/justice/feed/"                  # The Intercept Justice — left-independent, accountability journalism
+      - "https://feeds.npr.org/1014/rss.xml"                      # NPR Politics — measured/factual, good for developments
