@@ -1,0 +1,9 @@
+# Layer 3 — the competitors and products to track (the factory; stable across runs)
+competitors:
+  - name: Acme Co
+    url: https://example.com/acme
+  - name: Globex
+    url: https://example.com/globex
+products:
+  - "widget-standard"
+  - "widget-pro"
