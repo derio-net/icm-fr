@@ -1,8 +1,19 @@
 # ICM Workspace Conventions
 
-The structural rules for an ICM workspace. These are exactly what
-`validate.py` enforces mechanically — **keep the two in sync**; if you change a
-rule here, change the validator and its tests.
+The rules for an ICM workspace. Some are checked mechanically by `validate.py`;
+others are conventions a human or reviewing agent upholds. The two are marked
+explicitly below — do not assume "validator-clean" means "fully conformant".
+
+**Enforced by `validate.py`** (keep the validator, its tests, and this list in
+sync): root `AGENTS.md` present · root `CONTEXT.md` present · every active harness
+shim present and redirecting to `AGENTS.md` · at least one stage · every stage has
+a `CONTEXT.md` with real `## Inputs` / `## Process` / `## Outputs` H2 headings ·
+stage numbers have no duplicates and run contiguously from `01`.
+
+**Documented but NOT mechanically checked** (use `advise`, or a human, to enforce):
+the Inputs `(reference)`/`(working)` tagging, the `name -> output/` Outputs format,
+the harness-neutrality rule, and slug style. These are judgment-level — the
+validator checks structure, not line-level content.
 
 ## Folder layout
 
@@ -52,8 +63,12 @@ Follow the structure in structure.md. Match the tone in voice.md.
 ```
 
 - **`## Inputs`** — one line per input. Each line is tagged `(working)` for Layer 4
-  (per-run artifacts, usually the previous stage's `output/`) or `(reference)` for
-  Layer 3 (stable rules). This split is the control point of the whole system.
+  (per-run artifacts) or `(reference)` for Layer 3 (stable rules). This split is the
+  control point of the whole system. A `(working)` input is usually the previous
+  stage's `output/`, but the **first stage's working input is the run's brief** —
+  the per-run material the user supplies (e.g. `setup/brief.md` or a provided
+  topic). It is `(working)`, not `(reference)`, because it changes every run, even
+  though it does not live in an `output/` folder.
 - **`## Process`** — what the stage does, in plain prose or numbered steps.
 - **`## Outputs`** — one line per artifact, `name -> output/`.
 

@@ -10,6 +10,11 @@ from this registry.
 
 ## The canonical shim set
 
+This table is the human-readable record of the shim set. The machine-enforced
+source of truth is `DEFAULT_SHIMS` in `validate.py`; `test_validate.py` imports it
+rather than re-declaring it, so the two cannot drift. Keep the `active` rows here
+matched to that constant by hand when you add a harness (see below).
+
 | File | Harness | Role | Status |
 |------|---------|------|--------|
 | `AGENTS.md` | Codex + generic | **Canonical Layer-0 content** | active |
@@ -47,4 +52,4 @@ content has exactly one home.
 5. The validator will now require it in every workspace — which is the point.
 
 > Keep `validate.py:DEFAULT_SHIMS` and the `active` rows here identical. The
-> validator is the enforcement; this file is the spec.
+> validator is the enforcement; this file is the human-readable record.

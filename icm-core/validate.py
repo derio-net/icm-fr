@@ -1,10 +1,17 @@
 """Structural validator for ICM workspaces — the agnostic "lint pass".
 
-Checks a workspace against the conventions in conventions.md / portability.md:
+Checks a workspace against the rules in conventions.md / portability.md:
   - root AGENTS.md present (the only Layer-0 file with real content)
-  - each harness shim present and pointing at AGENTS.md
+  - root CONTEXT.md present (Layer-1 task routing)
+  - each harness shim present and redirecting to AGENTS.md
+  - at least one stage exists
   - every stage has a CONTEXT.md with ## Inputs / ## Process / ## Outputs
-  - stage numbering is contiguous from 01
+    (matched as real H2 headings, not substrings)
+  - stage numbering has no duplicates and is contiguous from 01
+
+These checks, and only these, are what "validator-clean" guarantees. conventions.md
+documents further line-level rules (Inputs tagging, Outputs format, harness
+neutrality, slug style) that are conventions, not mechanically enforced here.
 
 Stdlib only. Library use: `validate_workspace(path) -> list[Finding]`.
 CLI: `python3 icm-core/validate.py <workspace>` — prints findings, exits 1 on error.
@@ -15,8 +22,9 @@ import sys
 from dataclasses import dataclass
 
 # The default shim set (D5). AGENTS.md is canonical content, not a shim.
-DEFAULT_SHIMS = ["CLAUDE.md", "GEMINI.md", os.path.join(".github", "copilot-instructions.md")]
-REQUIRED_SECTIONS = ["## Inputs", "## Process", "## Outputs"]
+# Forward-slash literals: portable for open() on every platform and for messages.
+DEFAULT_SHIMS = ["CLAUDE.md", "GEMINI.md", ".github/copilot-instructions.md"]
+REQUIRED_SECTIONS = ["Inputs", "Process", "Outputs"]
 STAGE_RE = re.compile(r"^(\d{2})_")
 
 
@@ -38,14 +46,22 @@ def _read(path):
         return None
 
 
+def _has_section(text, name):
+    """True if `text` contains a real H2 heading `## <name>` on its own line."""
+    return re.search(rf"(?m)^##[ \t]+{re.escape(name)}[ \t]*$", text) is not None
+
+
 def validate_workspace(path):
     """Return a list of Finding for the workspace rooted at `path`."""
     findings = []
 
-    # Layer 0: AGENTS.md
+    # Layer 0 / Layer 1 root files
     if not os.path.isfile(os.path.join(path, "AGENTS.md")):
         findings.append(Finding("error", "MISSING_AGENTS",
                                 "root AGENTS.md is missing (Layer-0 identity file)"))
+    if not os.path.isfile(os.path.join(path, "CONTEXT.md")):
+        findings.append(Finding("error", "MISSING_ROUTING",
+                                "root CONTEXT.md is missing (Layer-1 task routing)"))
 
     # Harness shims — present and redirecting to AGENTS.md
     for shim in DEFAULT_SHIMS:
@@ -63,10 +79,8 @@ def validate_workspace(path):
     if os.path.isdir(stages_dir):
         for name in sorted(os.listdir(stages_dir)):
             stage_path = os.path.join(stages_dir, name)
-            if not os.path.isdir(stage_path):
-                continue
             m = STAGE_RE.match(name)
-            if not m:
+            if not os.path.isdir(stage_path) or not m:
                 continue
             numbers.append(int(m.group(1)))
             contract = _read(os.path.join(stage_path, "CONTEXT.md"))
@@ -75,16 +89,31 @@ def validate_workspace(path):
                                         f"stage {name} has no CONTEXT.md"))
                 continue
             for section in REQUIRED_SECTIONS:
-                if section not in contract:
+                if not _has_section(contract, section):
                     findings.append(Finding("error", "MISSING_SECTION",
-                                            f"stage {name} contract missing section {section}"))
+                                            f"stage {name} contract missing section ## {section}"))
 
-    # Contiguous numbering from 01
-    if numbers:
-        expected = list(range(1, len(numbers) + 1))
-        if sorted(numbers) != expected:
-            findings.append(Finding("error", "NONCONTIGUOUS",
-                                    f"stage numbering not contiguous from 01: found {sorted(numbers)}"))
+    # At least one stage
+    if not numbers:
+        findings.append(Finding("error", "NO_STAGES",
+                                "workspace has no stages (expected stages/NN_<slug>/)"))
+        return findings
+
+    # Duplicate stage numbers
+    dups = sorted({n for n in numbers if numbers.count(n) > 1})
+    if dups:
+        findings.append(Finding("error", "DUPLICATE_STAGE",
+                                f"duplicate stage number(s): {['%02d' % n for n in dups]}"))
+
+    # Contiguous numbering from 01 (over the distinct numbers)
+    unique = sorted(set(numbers))
+    expected = list(range(1, len(unique) + 1))
+    if unique != expected:
+        missing = sorted(set(expected) - set(unique))
+        findings.append(Finding("error", "NONCONTIGUOUS",
+                                f"stage numbering not contiguous from 01: "
+                                f"found {['%02d' % n for n in unique]}, "
+                                f"missing {['%02d' % n for n in missing]}"))
 
     return findings
 
