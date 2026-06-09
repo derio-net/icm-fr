@@ -1,7 +1,17 @@
-# Setup Questionnaire (canned answers — this is a smoke-test workspace)
+# Setup Questionnaire — Competitor-Pricing Digest
 
-1. **Domain / deliverable** — a weekly competitor-pricing digest.
-2. **Competitors & products** — see `_config/competitors.yaml` (2 competitors, 2 products).
-3. **Review points** — after the snapshot (01) and after the change list (02).
-4. **Stable vs per-run** — competitor list is stable (L3); the weekly snapshot is per-run (L4).
-5. **Mechanical work** — price lookup could be a local script later; not built for the smoke test.
+Answer once, at setup. Your answers populate `_config/` (the factory); every weekly
+run inherits them. (This is a smoke-test workspace, so the canned answers from the
+generating interview are shown in brackets.)
+
+1. **Which competitors do you track?** Name + listing URL for each.
+   → `_config/competitors.yaml` › `competitors`
+   [Acme Co, Globex]
+2. **Which products do you compare across them?**
+   → `_config/competitors.yaml` › `products`
+   [widget-standard, widget-pro]
+3. **What currency / region should prices be normalised to?**
+   [not set for the smoke test]
+4. **What change is worth highlighting?** (e.g. any move ≥ 5%, or top 5 by size)
+   → drives the digest in stage 03
+   [top 3–5 moves by size]

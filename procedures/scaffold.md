@@ -57,7 +57,11 @@ inherits it. Do not leave the stub unchanged.
 ## Step 5 — Validate
 
 Run `python3 icm-core/validate.py <output-path>`. Fix the **output** until it exits
-0. The validator checks structure only — self-check the Inputs `(reference)`/
-`(working)` tagging and Outputs format by hand, and confirm the first stage's run
-brief (if any) is tagged `(working)`. Then hand the workspace to the user to fill in
-`_config/` via the questionnaire and run stage 01.
+0 (never weaken the validator to pass). The validator checks structure only —
+self-check the Inputs `(reference)`/`(working)` tagging and Outputs format by hand.
+In particular, **every `(working)` input must name a real producing location** — a
+prior stage's `output/`, an archived carry-over under `shared/`, or the run brief —
+never a bare filename with no producer. Locate where this pipeline's per-run input
+enters (a user-supplied brief, or the previous run's output) and make sure exactly
+one place introduces it. Then hand the workspace to the user to fill in `_config/`
+via the questionnaire and run stage 01.
