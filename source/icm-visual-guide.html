@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICM: Folder Structure as Agent Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500&family=Source+Code+Pro:wght@400;500&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0F0F0F;
+  --surface: #1A1A1A;
+  --text: #E8E6E1;
+  --text-bright: rgba(232,230,225,0.93);
+  --text-dim: rgba(232,230,225,0.68);
+  --text-floor: rgba(232,230,225,0.60);
+  --text-muted: rgba(232,230,225,0.40);
+  --rule: rgba(232,230,225,0.10);
+  --rule-strong: rgba(232,230,225,0.15);
+  --amber: #B08800;
+  --accent: #1E3A5F;
+  --critical: #B91C1C;
+  --ok: #047857;
+  --warning: #C2410C;
+  --layer0: #B91C1C;
+  --layer1: #C2410C;
+  --layer2: #B08800;
+  --layer3: #1E3A5F;
+  --layer4: #047857;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 64px 48px;
+  line-height: 1.55;
+}
+
+h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  max-width: 640px;
+}
+
+.citation {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 64px;
+}
+
+h2 {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--amber);
+  margin-bottom: 24px;
+  margin-top: 80px;
+}
+
+h2:first-of-type { margin-top: 0; }
+
+.note {
+  font-size: 14px;
+  color: var(--text-dim);
+  max-width: 640px;
+  margin-bottom: 32px;
+}
+
+/* ================================================================
+   THE CORE IDEA
+================================================================ */
+
+.idea-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  max-width: 800px;
+  margin-bottom: 16px;
+}
+
+.idea-box {
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+
+.idea-box-label {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.idea-box-content {
+  font-size: 15px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.idea-box-content strong {
+  font-weight: 500;
+  color: var(--text-bright);
+}
+
+.idea-arrow {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  font-size: 24px;
+  color: var(--amber);
+}
+
+/* ================================================================
+   FIVE-LAYER HIERARCHY
+================================================================ */
+
+.layers {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 800px;
+}
+
+.layer-row {
+  display: grid;
+  grid-template-columns: 80px 48px 1fr 200px 80px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+
+.layer-bracket {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.layer-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  justify-self: center;
+}
+
+.layer-dot--0 { background: var(--layer0); }
+.layer-dot--1 { background: var(--layer1); }
+.layer-dot--2 { background: var(--layer2); }
+.layer-dot--3 { background: var(--layer3); }
+.layer-dot--4 { background: var(--layer4); }
+
+.layer-name {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--text-bright);
+}
+
+.layer-name span {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 12px;
+  color: var(--text-floor);
+  margin-left: 8px;
+}
+
+.layer-question {
+  font-size: 13px;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.layer-tokens {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.layer-group-label {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin: 12px 0 4px 96px;
+}
+
+/* ================================================================
+   FACTORY VS PRODUCT
+================================================================ */
+
+.fvp {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  max-width: 640px;
+}
+
+.fvp-card {
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+
+.fvp-card-title {
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.fvp-card-title--ref { color: var(--layer3); }
+.fvp-card-title--work { color: var(--layer4); }
+
+.fvp-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 13px;
+}
+
+.fvp-label { color: var(--text-floor); }
+.fvp-value { color: var(--text-dim); text-align: right; }
+
+/* ================================================================
+   PIPELINE FLOW
+================================================================ */
+
+.pipeline {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  max-width: 860px;
+}
+
+.pipe-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.pipe-stage-box {
+  width: 100%;
+  padding: 16px 12px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--accent);
+  border-radius: 4px;
+  text-align: center;
+}
+
+.pipe-stage-num {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.pipe-stage-name {
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--text-bright);
+}
+
+.pipe-stage-layers {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 9px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.pipe-output {
+  padding: 6px 12px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--layer4);
+  border-radius: 4px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  color: var(--text-floor);
+  width: 100%;
+  text-align: center;
+}
+
+.pipe-gate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  min-width: 56px;
+}
+
+.pipe-gate-line {
+  width: 32px;
+  height: 2px;
+  background: var(--amber);
+}
+
+.pipe-gate-icon {
+  font-size: 16px;
+  color: var(--amber);
+  margin: 4px 0;
+}
+
+.pipe-gate-label {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 9px;
+  color: var(--amber);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* ================================================================
+   STAGE CONTRACT
+================================================================ */
+
+.contract {
+  max-width: 560px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--amber);
+  border-radius: 4px;
+  padding: 20px 24px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.contract-heading {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--amber);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 16px;
+  margin-bottom: 4px;
+}
+
+.contract-heading:first-child { margin-top: 0; }
+
+.contract-line { color: var(--text-dim); }
+.contract-line--ref { color: var(--layer3); }
+.contract-line--work { color: var(--layer4); }
+.contract-line--output { color: var(--ok); }
+
+/* ================================================================
+   CONTEXT WINDOW COMPARISON
+================================================================ */
+
+.bars {
+  display: flex;
+  gap: 48px;
+  align-items: flex-end;
+  max-width: 640px;
+  height: 280px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--rule-strong);
+  margin-bottom: 8px;
+}
+
+.bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.bar-stack {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.bar-segment {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 10px;
+  color: var(--bg);
+  font-weight: 500;
+  min-height: 4px;
+}
+
+.bar-segment--structural { background: rgba(232,230,225,0.25); }
+.bar-segment--reference { background: var(--layer3); }
+.bar-segment--working { background: var(--layer4); }
+.bar-segment--unused { background: rgba(232,230,225,0.08); color: var(--text-muted); }
+
+.bar-label {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  color: var(--text-floor);
+  margin-top: 12px;
+  text-align: center;
+}
+
+.bar-total {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-bright);
+  margin-bottom: 8px;
+}
+
+.bars-legend {
+  display: flex;
+  gap: 24px;
+  max-width: 640px;
+  margin-top: 16px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-floor);
+}
+
+.legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+/* ================================================================
+   U-SHAPED INTERVENTION
+================================================================ */
+
+.u-shape {
+  display: flex;
+  align-items: flex-end;
+  gap: 32px;
+  max-width: 480px;
+  height: 200px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--rule-strong);
+  margin-bottom: 8px;
+}
+
+.u-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.u-bar {
+  width: 100%;
+  background: var(--amber);
+  border-radius: 3px 3px 0 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 8px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--bg);
+}
+
+.u-label {
+  font-size: 12px;
+  color: var(--text-floor);
+  margin-top: 12px;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* ================================================================
+   FIVE PRINCIPLES
+================================================================ */
+
+.principles {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 640px;
+}
+
+.principle {
+  display: flex;
+  gap: 16px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+
+.principle-num {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--amber);
+  flex-shrink: 0;
+  width: 28px;
+}
+
+.principle-text {
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+.principle-text strong {
+  font-weight: 500;
+  color: var(--text-bright);
+}
+
+/* ================================================================
+   WHERE IT WORKS / DOESN'T
+================================================================ */
+
+.fit {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  max-width: 640px;
+}
+
+.fit-card {
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+
+.fit-card--yes { border-top: 3px solid var(--ok); }
+.fit-card--no { border-top: 3px solid var(--critical); }
+
+.fit-title {
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.fit-title--yes { color: var(--ok); }
+.fit-title--no { color: var(--critical); }
+
+.fit-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fit-list li {
+  font-size: 13px;
+  color: var(--text-dim);
+  padding-left: 12px;
+  position: relative;
+}
+
+.fit-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+}
+
+.fit-card--yes .fit-list li::before { background: var(--ok); }
+.fit-card--no .fit-list li::before { background: var(--critical); }
+
+/* ================================================================
+   RESPONSIVE
+================================================================ */
+
+@media (max-width: 768px) {
+  body { padding: 32px 24px; }
+  .idea-grid { grid-template-columns: 1fr; }
+  .idea-arrow { transform: rotate(90deg); justify-content: center; padding: 12px 0; }
+  .layer-row { grid-template-columns: 40px 1fr; }
+  .layer-bracket, .layer-question, .layer-tokens { display: none; }
+  .pipeline { flex-direction: column; gap: 8px; }
+  .pipe-gate { flex-direction: row; padding: 4px 0; min-width: auto; }
+  .pipe-gate-line { width: 2px; height: 24px; }
+  .fvp { grid-template-columns: 1fr; }
+  .bars { flex-direction: column; height: auto; gap: 16px; align-items: stretch; }
+  .bar-col { flex-direction: row; height: 32px; }
+  .bar-stack { flex-direction: row; height: 100%; }
+  .u-shape { height: 160px; }
+  .fit { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<h1>Interpretable Context Methodology</h1>
+<p class="subtitle">Folder structure as agent architecture. One agent reads the right files at the right moment. The folder structure replaces the framework.</p>
+<p class="citation">Van Clief & McDermott, Eduba / University of Edinburgh, 2025</p>
+
+<!-- ============================================================
+     THE CORE IDEA
+============================================================ -->
+
+<h2>The core idea</h2>
+
+<div class="idea-grid">
+  <div class="idea-box">
+    <div class="idea-box-label">Framework approach</div>
+    <div class="idea-box-content">Multiple specialised agents coordinated through <strong>code</strong>. Change a step = edit code, redeploy. Inspect state = build a dashboard.</div>
+  </div>
+  <div class="idea-arrow">&rarr;</div>
+  <div class="idea-box">
+    <div class="idea-box-label">ICM approach</div>
+    <div class="idea-box-content"><strong>One agent</strong> reads different context at each stage. Change a step = rename a folder. Inspect state = open the folder, read the files.</div>
+  </div>
+</div>
+
+<!-- ============================================================
+     FIVE PRINCIPLES
+============================================================ -->
+
+<h2>Five principles</h2>
+
+<div class="principles">
+  <div class="principle">
+    <div class="principle-num">1</div>
+    <div class="principle-text"><strong>One stage, one job.</strong> Each folder handles one step. A stage that fetches data does not also filter it.</div>
+  </div>
+  <div class="principle">
+    <div class="principle-num">2</div>
+    <div class="principle-text"><strong>Plain text as the interface.</strong> Stages communicate through markdown and JSON. Any tool that can read a text file can participate.</div>
+  </div>
+  <div class="principle">
+    <div class="principle-num">3</div>
+    <div class="principle-text"><strong>Layered context loading.</strong> Agents load only the context they need for the current stage. Less irrelevant context = better output.</div>
+  </div>
+  <div class="principle">
+    <div class="principle-num">4</div>
+    <div class="principle-text"><strong>Every output is an edit surface.</strong> The human can open, read, edit, and save any intermediate output before the next stage runs.</div>
+  </div>
+  <div class="principle">
+    <div class="principle-num">5</div>
+    <div class="principle-text"><strong>Configure the factory, not the product.</strong> Set up once with your preferences. Each run produces a new deliverable using the same configuration.</div>
+  </div>
+</div>
+
+<!-- ============================================================
+     FIVE-LAYER CONTEXT HIERARCHY
+============================================================ -->
+
+<h2>Five-layer context hierarchy</h2>
+
+<p class="note">Each layer answers one question. The agent loads layers top to bottom, but only loads what the current stage needs.</p>
+
+<div class="layer-group-label">Structural (routing)</div>
+
+<div class="layers">
+  <div class="layer-row">
+    <div class="layer-bracket">Structural</div>
+    <div class="layer-dot layer-dot--0"></div>
+    <div class="layer-name">Layer 0 <span>CLAUDE.md</span></div>
+    <div class="layer-question">"Where am I?"</div>
+    <div class="layer-tokens">~800 tok</div>
+  </div>
+  <div class="layer-row">
+    <div class="layer-bracket"></div>
+    <div class="layer-dot layer-dot--1"></div>
+    <div class="layer-name">Layer 1 <span>CONTEXT.md</span></div>
+    <div class="layer-question">"Where do I go?"</div>
+    <div class="layer-tokens">~300 tok</div>
+  </div>
+  <div class="layer-row">
+    <div class="layer-bracket"></div>
+    <div class="layer-dot layer-dot--2"></div>
+    <div class="layer-name">Layer 2 <span>Stage CONTEXT.md</span></div>
+    <div class="layer-question">"What do I do?"</div>
+    <div class="layer-tokens">200-500 tok</div>
+  </div>
+</div>
+
+<div class="layer-group-label">Content (factory + product)</div>
+
+<div class="layers">
+  <div class="layer-row">
+    <div class="layer-bracket">Content</div>
+    <div class="layer-dot layer-dot--3"></div>
+    <div class="layer-name">Layer 3 <span>Reference material</span></div>
+    <div class="layer-question">"What rules apply?"</div>
+    <div class="layer-tokens">500-2k tok</div>
+  </div>
+  <div class="layer-row">
+    <div class="layer-bracket"></div>
+    <div class="layer-dot layer-dot--4"></div>
+    <div class="layer-name">Layer 4 <span>Working artifacts</span></div>
+    <div class="layer-question">"What am I working with?"</div>
+    <div class="layer-tokens">varies</div>
+  </div>
+</div>
+
+<!-- ============================================================
+     FACTORY VS PRODUCT
+============================================================ -->
+
+<h2>Layer 3 vs Layer 4</h2>
+
+<div class="fvp">
+  <div class="fvp-card">
+    <div class="fvp-card-title fvp-card-title--ref">Layer 3: The Factory</div>
+    <div class="fvp-row"><span class="fvp-label">Changes between runs</span><span class="fvp-value">No</span></div>
+    <div class="fvp-row"><span class="fvp-label">Examples</span><span class="fvp-value">voice.md, design-system.md</span></div>
+    <div class="fvp-row"><span class="fvp-label">Model should</span><span class="fvp-value">Internalise as constraints</span></div>
+    <div class="fvp-row"><span class="fvp-label">Configured during</span><span class="fvp-value">Setup (once)</span></div>
+    <div class="fvp-row"><span class="fvp-label">Analogy</span><span class="fvp-value">The recipe</span></div>
+  </div>
+  <div class="fvp-card">
+    <div class="fvp-card-title fvp-card-title--work">Layer 4: The Product</div>
+    <div class="fvp-row"><span class="fvp-label">Changes between runs</span><span class="fvp-value">Yes</span></div>
+    <div class="fvp-row"><span class="fvp-label">Examples</span><span class="fvp-value">research-output.md, draft.md</span></div>
+    <div class="fvp-row"><span class="fvp-label">Model should</span><span class="fvp-value">Process as input</span></div>
+    <div class="fvp-row"><span class="fvp-label">Configured during</span><span class="fvp-value">Each run</span></div>
+    <div class="fvp-row"><span class="fvp-label">Analogy</span><span class="fvp-value">The ingredients</span></div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PIPELINE FLOW
+============================================================ -->
+
+<h2>How stages connect</h2>
+
+<p class="note">Each stage receives its own context (Layers 0-4), writes output to its folder, and the human reviews before the next stage reads it. Same model at every stage. The folder controls what it sees.</p>
+
+<div class="pipeline">
+  <div class="pipe-stage">
+    <div class="pipe-stage-box">
+      <div class="pipe-stage-num">01</div>
+      <div class="pipe-stage-name">Research</div>
+      <div class="pipe-stage-layers">Layers 0-2 + 3 + 4</div>
+    </div>
+    <div class="pipe-output">output/</div>
+  </div>
+
+  <div class="pipe-gate">
+    <div class="pipe-gate-line"></div>
+    <div class="pipe-gate-icon">&#9998;</div>
+    <div class="pipe-gate-label">Human<br>reviews</div>
+    <div class="pipe-gate-line"></div>
+  </div>
+
+  <div class="pipe-stage">
+    <div class="pipe-stage-box">
+      <div class="pipe-stage-num">02</div>
+      <div class="pipe-stage-name">Script</div>
+      <div class="pipe-stage-layers">Layers 0-2 + 3 + 4</div>
+    </div>
+    <div class="pipe-output">output/</div>
+  </div>
+
+  <div class="pipe-gate">
+    <div class="pipe-gate-line"></div>
+    <div class="pipe-gate-icon">&#9998;</div>
+    <div class="pipe-gate-label">Human<br>reviews</div>
+    <div class="pipe-gate-line"></div>
+  </div>
+
+  <div class="pipe-stage">
+    <div class="pipe-stage-box">
+      <div class="pipe-stage-num">03</div>
+      <div class="pipe-stage-name">Production</div>
+      <div class="pipe-stage-layers">Layers 0-2 + 3 + 4</div>
+    </div>
+    <div class="pipe-output">output/</div>
+  </div>
+</div>
+
+<!-- ============================================================
+     STAGE CONTRACT
+============================================================ -->
+
+<h2>What a stage contract looks like</h2>
+
+<p class="note">Each stage's CONTEXT.md defines what it reads, what it does, and what it writes. The Inputs table distinguishes reference material (stable) from working artifacts (per-run).</p>
+
+<div class="contract">
+  <div class="contract-heading">Inputs</div>
+  <div class="contract-line contract-line--work">- Layer 4 (working): ../01_research/output/</div>
+  <div class="contract-line contract-line--ref">- Layer 3 (reference): ../../_config/voice.md</div>
+  <div class="contract-line contract-line--ref">- Layer 3 (reference): references/structure.md</div>
+
+  <div class="contract-heading">Process</div>
+  <div class="contract-line">Write a script based on the research output.</div>
+  <div class="contract-line">Follow the structure in structure.md.</div>
+  <div class="contract-line">Match the tone described in voice.md.</div>
+
+  <div class="contract-heading">Outputs</div>
+  <div class="contract-line contract-line--output">- script_draft.md -> output/</div>
+</div>
+
+<!-- ============================================================
+     CONTEXT WINDOW COMPARISON
+============================================================ -->
+
+<h2>Why staged loading matters</h2>
+
+<p class="note">Each MWP stage delivers 2,000-8,000 focused tokens. A monolithic approach loads everything into one prompt: 40,000+ tokens, most of it irrelevant to the current task.</p>
+
+<div class="bars">
+  <div class="bar-col">
+    <div class="bar-total">~5k</div>
+    <div class="bar-stack">
+      <div class="bar-segment bar-segment--structural" style="height: 30px;"></div>
+      <div class="bar-segment bar-segment--reference" style="height: 14px;"></div>
+      <div class="bar-segment bar-segment--working" style="height: 10px;"></div>
+    </div>
+    <div class="bar-label">Research</div>
+  </div>
+  <div class="bar-col">
+    <div class="bar-total">~5.5k</div>
+    <div class="bar-stack">
+      <div class="bar-segment bar-segment--structural" style="height: 30px;"></div>
+      <div class="bar-segment bar-segment--reference" style="height: 18px;"></div>
+      <div class="bar-segment bar-segment--working" style="height: 12px;"></div>
+    </div>
+    <div class="bar-label">Script</div>
+  </div>
+  <div class="bar-col">
+    <div class="bar-total">~5.6k</div>
+    <div class="bar-stack">
+      <div class="bar-segment bar-segment--structural" style="height: 30px;"></div>
+      <div class="bar-segment bar-segment--reference" style="height: 20px;"></div>
+      <div class="bar-segment bar-segment--working" style="height: 14px;"></div>
+    </div>
+    <div class="bar-label">Production</div>
+  </div>
+  <div class="bar-col">
+    <div class="bar-total">~42k</div>
+    <div class="bar-stack">
+      <div class="bar-segment bar-segment--structural" style="height: 16px;"></div>
+      <div class="bar-segment bar-segment--reference" style="height: 24px;"></div>
+      <div class="bar-segment bar-segment--working" style="height: 20px;"></div>
+      <div class="bar-segment bar-segment--unused" style="height: 160px;">unused</div>
+    </div>
+    <div class="bar-label">Monolithic</div>
+  </div>
+</div>
+
+<div class="bars-legend">
+  <div class="legend-item"><div class="legend-swatch" style="background: rgba(232,230,225,0.25);"></div> Structural (L0-2)</div>
+  <div class="legend-item"><div class="legend-swatch" style="background: var(--layer3);"></div> Reference (L3)</div>
+  <div class="legend-item"><div class="legend-swatch" style="background: var(--layer4);"></div> Working (L4)</div>
+  <div class="legend-item"><div class="legend-swatch" style="background: rgba(232,230,225,0.08);"></div> Unused context</div>
+</div>
+
+<!-- ============================================================
+     U-SHAPED INTERVENTION
+============================================================ -->
+
+<h2>Where humans intervene</h2>
+
+<p class="note">Observed across 33 practitioners: heavy editing at stage 1 (direction-setting), light in the middle (constrained execution), heavy again at the end (alignment checking). The middle stages get the lightest touch because both anchors are in place.</p>
+
+<div class="u-shape">
+  <div class="u-col">
+    <div class="u-bar" style="height: 92%;">92%</div>
+    <div class="u-label">Stage 1<br>Research</div>
+  </div>
+  <div class="u-col">
+    <div class="u-bar" style="height: 30%; opacity: 0.6;">30%</div>
+    <div class="u-label">Stage 2<br>Script</div>
+  </div>
+  <div class="u-col">
+    <div class="u-bar" style="height: 78%;">78%</div>
+    <div class="u-label">Stage 3<br>Production</div>
+  </div>
+</div>
+
+<!-- ============================================================
+     WHERE IT FITS
+============================================================ -->
+
+<h2>Where this works and where it does not</h2>
+
+<div class="fit">
+  <div class="fit-card fit-card--yes">
+    <div class="fit-title fit-title--yes">Works</div>
+    <ul class="fit-list">
+      <li>Sequential workflows (step 2 follows step 1)</li>
+      <li>Human reviews output at each step</li>
+      <li>Same pipeline runs repeatedly with different input</li>
+      <li>Content production, research, training material</li>
+      <li>Non-developers need to make changes</li>
+    </ul>
+  </div>
+  <div class="fit-card fit-card--no">
+    <div class="fit-title fit-title--no">Does not work</div>
+    <ul class="fit-list">
+      <li>Real-time multi-agent collaboration</li>
+      <li>High-concurrency (many users at once)</li>
+      <li>Complex branching based on AI decisions</li>
+      <li>Dynamic agent-to-agent communication</li>
+      <li>Systems that need message-passing infrastructure</li>
+    </ul>
+  </div>
+</div>
+
+<p style="font-size: 14px; color: var(--text-floor); max-width: 640px; margin-top: 32px; margin-bottom: 64px;">
+The claim is not that this replaces frameworks across the board. The claim is that for a large and common class of workflows, the existing tools provide more complexity than the problem requires. The simplest viable architecture for this class of problem is one that already exists on every computer: the filesystem.
+</p>
+
+</body>
+</html>
