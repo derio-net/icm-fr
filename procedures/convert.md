@@ -49,12 +49,15 @@ Copy `icm-core/templates/workspace/` to the output path and fill it in:
 
 1. `AGENTS.md` — Layer 0: name, purpose, the stage list, where to find things.
 2. `CONTEXT.md` — Layer 1: the stage-routing table.
-3. The 4 shims come from the template unchanged (do not edit them).
+3. The 3 shims come from the template unchanged (do not edit them).
 4. For each stage, copy `icm-core/templates/stage/` to `stages/NN_slug/` and write
    its `CONTEXT.md` contract: `## Inputs` (each line tagged `(reference)` or
    `(working)`), `## Process`, `## Outputs` (`name -> output/`). Name no harness.
 5. Place Layer 3 reference files in `_config/`/`shared/`/`references/`. Seed any
    obvious Layer 4 run input under the first stage if the original implies one.
+6. Adapt `setup/questionnaire.md` (it ships in the template as a stub) to ask the
+   real first-run setup questions for this workspace — what populates `_config/`.
+   Do not leave the template stub unchanged.
 
 ## Step 4 — Gap report
 
@@ -70,10 +73,13 @@ Write `CONVERSION_NOTES.md` at the workspace root with these sections:
 ## Step 5 — Validate
 
 Run `python3 icm-core/validate.py <output-path>`. Fix the **output** until it exits
-0 (never weaken the validator to pass). Then complete the Acceptance checklist:
+0 (never weaken the validator to pass). The validator checks *structure* only — it
+does **not** verify the Inputs `(reference)`/`(working)` tagging or the Outputs
+format. Self-check those by hand: in particular confirm the first stage's run brief
+is tagged `(working)`, not `(reference)`. Then complete the Acceptance checklist:
 
 - [ ] Correct numbered stages, each with a complete Inputs/Process/Outputs contract.
 - [ ] Every original piece classified (stage / L3 / L4 / script) or listed in
       "Did not map".
-- [ ] `AGENTS.md` + all 4 shims present (validator-confirmed).
+- [ ] `AGENTS.md` + all 3 shims present (validator-confirmed).
 - [ ] Gap report names every judgment call and unmapped piece.

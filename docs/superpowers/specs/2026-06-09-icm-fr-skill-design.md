@@ -71,7 +71,7 @@ derio-net/icm-fr/
 │   ├── portability.md               shim registry + procedure to add a harness
 │   ├── validate.(py|sh)             structural validator (lint pass for a workspace)
 │   ├── templates/
-│   │   ├── workspace/               AGENTS.md + 4 shims, CONTEXT.md, _config/, setup/
+│   │   ├── workspace/               AGENTS.md + 3 shims, CONTEXT.md, _config/, setup/
 │   │   └── stage/                   CONTEXT.md contract template (Inputs/Process/Outputs)
 │   └── example/                     one canonical, hand-built worked workspace
 ├── procedures/
@@ -102,7 +102,7 @@ Shared preamble for every mode: load `principles.md` + `conventions.md` + `porta
    Classify every piece: *stage* (does work) · *Layer 3 reference* (rule/constraint/voice guide) ·
    *Layer 4 working artifact* · *local script* (mechanical, no AI).
 3. **Emit** the numbered-folder workspace from `templates/`, writing a `CONTEXT.md` contract
-   (Inputs split L3/L4 · Process · Outputs) per stage, plus `AGENTS.md` + the 4 shims.
+   (Inputs split L3/L4 · Process · Outputs) per stage, plus `AGENTS.md` + the 3 shims.
 4. **Gap report** (`CONVERSION_NOTES.md`) — explicitly flags pieces that did *not* map cleanly
    (e.g. event-driven hooks → not sequential, cannot be a stage), judgment calls made, and the
    last-mile edits a human should do. Honest accounting; nothing silently dropped.
@@ -154,7 +154,7 @@ repeatable — a textbook ICM fit.
 1. Correct numbered stages with complete Inputs/Process/Outputs contracts.
 2. Correct classification of news-report's pieces — topic config → L3 reference; fetched articles →
    L4 working; assembly logic → stages.
-3. Emits `AGENTS.md` + all 4 shims.
+3. Emits `AGENTS.md` + all 3 shims.
 4. Ships a `CONVERSION_NOTES.md` gap report naming every non-mechanical judgment call.
 
 *Not required:* that the converted workspace runs byte-identical to the original skill.

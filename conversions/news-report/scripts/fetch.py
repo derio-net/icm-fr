@@ -15,14 +15,18 @@ import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 
 UA = "Mozilla/5.0 (compatible; icm-news-report/1.0)"
+TIMEOUT = 15          # seconds, per socket operation
+MAX_BYTES = 5 << 20   # 5 MiB cap — articles/feeds are small; avoid buffering a huge body
 
 
-def fetch(url, timeout=15):
+def fetch(url):
     try:
         req = urllib.request.Request(url, headers={"User-Agent": UA})
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            body = resp.read().decode("utf-8", errors="replace")
-        return {"url": url, "ok": True, "body": body}
+        with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
+            raw = resp.read(MAX_BYTES + 1)
+        if len(raw) > MAX_BYTES:
+            return {"url": url, "ok": False, "error": f"body exceeds {MAX_BYTES} bytes"}
+        return {"url": url, "ok": True, "body": raw.decode("utf-8", errors="replace")}
     except Exception as e:  # noqa: BLE001 — report, never crash the batch
         return {"url": url, "ok": False, "error": str(e)[:200]}
 

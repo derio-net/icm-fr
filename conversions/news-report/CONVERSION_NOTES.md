@@ -9,7 +9,7 @@ Converted: 2026-06-09. Bar: faithful structure, human finishes (D6).
 - [x] Correct numbered stages (01_select → 04_assemble), each with a complete
       Inputs/Process/Outputs contract.
 - [x] Every original piece classified (below) or listed under "Did not map".
-- [x] `AGENTS.md` + all 4 shims present (validator exit 0).
+- [x] `AGENTS.md` + all 3 shims present (validator exit 0).
 - [x] This report names every judgment call and unmapped piece.
 
 ## How the original mapped
@@ -45,8 +45,11 @@ Converted: 2026-06-09. Bar: faithful structure, human finishes (D6).
   ICM names no harness; how the workspace is invoked is the operator's choice. Not
   represented in any contract.
 - **Browser Mode** (the `browser-harness new_tab` fallback for JS/login-walled
-  pages). A fetch-path fallback, not a stage. Captured as a one-line note in
-  `02_gather`'s process ("mark gated pages snippet-only and continue").
+  pages). This was an *actual fetch path* that retrieved full content from
+  JS-rendered or logged-in-paywalled sites. It is **not preserved** — `02_gather`
+  degrades such pages to "snippet only" instead. This is a real capability loss, not
+  a structural no-op; flagged in Human last-mile. (It is a harness-specific fetch
+  path, not a stage, so it has no ICM home without a browser-capable local script.)
 
 ## Judgment calls
 
@@ -62,9 +65,12 @@ Converted: 2026-06-09. Bar: faithful structure, human finishes (D6).
 3. **WebSearch as a generic "web search" step.** The contract says "run web
    searches"; it names no specific tool, per the harness-neutrality rule. Whatever
    the running agent has (WebSearch, an MCP search tool) satisfies it.
-4. **The hard-stop guard kept as prose in `01_select`.** The original's "no live
-   retrieval → stop, never fabricate" is a guard, not a stage; recorded in 01's
-   contract note.
+4. **The hard-stop guard placed in `02_gather`, not `01_select`.** The original ran
+   it in Step 0, but in the ICM split only `02_gather` exercises live retrieval
+   (`01_select` reads local files), so the fail-fast belongs there. The original's
+   cancellation-stub-for-audit write is kept as a note in 02's process. `01_select`
+   now reads the previous run's report from `../04_assemble/output/` for its
+   incremental check (no cross-stage copy-back).
 
 ## Human last-mile (before first run)
 

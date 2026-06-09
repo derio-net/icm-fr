@@ -17,4 +17,7 @@
 
 ## Outputs
 - today-report.md -> output/
-- (copy back to ../01_select/output/today-report.md so the next incremental run sees it)
+
+> The next run's `01_select` reads this file (the previous report) for its
+> incremental check. Each stage writes only its own `output/`; there is no
+> cross-stage copy-back.
