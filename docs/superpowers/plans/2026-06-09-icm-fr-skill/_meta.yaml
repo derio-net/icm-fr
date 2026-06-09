@@ -1,0 +1,6 @@
+schema_version: 2
+plan: 2026-06-09-icm-fr-skill
+spec: docs/superpowers/specs/2026-06-09-icm-fr-skill-design.md
+target_repo: derio-net/icm-fr
+fr_version: '>=3.0.0,<4.0.0'
+created: '2026-06-09'

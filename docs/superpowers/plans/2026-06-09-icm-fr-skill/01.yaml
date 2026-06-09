@@ -1,0 +1,184 @@
+schema_version: 2
+phase:
+  number: 1
+  title: 'Foundation: icm-core, validator (TDD), templates, example, repo doorways'
+  tag: agentic
+  depends_on: []
+  tracking_issue: null
+tasks:
+- number: 1
+  title: Validator tests first (TDD)
+  steps:
+  - id: P1.T1.S1
+    text: |
+      Create `icm-core/test_validate.py` (stdlib `unittest`, no third-party deps so it
+      runs on any harness). Use `tempfile.TemporaryDirectory` to build fixture
+      workspaces on disk and assert on a `validate_workspace(path) -> list[Finding]`
+      function (import from `icm_core.validate` or a path import — see S2 for the module
+      location). Cover these cases, each a separate test method:
+        - VALID: a workspace with `AGENTS.md`, all 4 shims, `stages/01_x/CONTEXT.md` and
+          `stages/02_y/CONTEXT.md` each containing `## Inputs`, `## Process`, `## Outputs`,
+          contiguous numbering → returns zero error-level findings.
+        - MISSING_AGENTS: no root `AGENTS.md` → one error finding mentioning AGENTS.md.
+        - MISSING_SHIM: `GEMINI.md` absent → error naming the missing shim.
+        - BAD_SHIM: `CLAUDE.md` exists but does not reference `AGENTS.md` → error.
+        - MISSING_CONTRACT_SECTION: a stage `CONTEXT.md` lacking `## Outputs` → error
+          naming the stage and the missing section.
+        - NONCONTIGUOUS: stages `01_x` and `03_z` (gap at 02) → error about numbering.
+      Run `python -m unittest icm-core/test_validate.py` from repo root and confirm it
+      FAILS with ImportError/collection error (module not yet written).
+- number: 2
+  title: Implement the validator
+  steps:
+  - id: P1.T2.S1
+    text: |
+      Create `icm-core/validate.py` exposing `validate_workspace(path) -> list[Finding]`
+      where `Finding` is a small dataclass `(level: str, code: str, message: str)` with
+      `level in {"error","warn"}`. Checks, derived from `conventions.md` (T3):
+        - root `AGENTS.md` exists (error if not).
+        - each shim in the configured set — `CLAUDE.md`, `GEMINI.md`,
+          `.github/copilot-instructions.md` — exists AND its text contains the substring
+          `AGENTS.md` (error per missing/bad shim). The shim set is read from
+          `portability.md`'s registry if present, else falls back to the hardcoded 4.
+        - every `stages/NN_*/` dir has a `CONTEXT.md` containing all of `## Inputs`,
+          `## Process`, `## Outputs` (error naming stage+section).
+        - stage numbers parsed from `NN_` prefixes are contiguous starting at 01 (error).
+      Add `if __name__ == "__main__":` that takes a path argv, prints findings one per
+      line as `LEVEL code: message`, exits 1 if any error-level finding else 0.
+      Run `python -m unittest icm-core/test_validate.py` — all green.
+- number: 3
+  title: Methodology core docs (the portable Layer-3 substance)
+  steps:
+  - id: P1.T3.S1
+    text: |
+      Write `icm-core/principles.md`: the 5 principles (one stage/one job; plain text as
+      interface; layered context loading; every output an edit surface; configure the
+      factory not the product) and the 5-layer hierarchy table (L0 AGENTS.md identity, L1
+      task routing, L2 stage contract, L3 reference/factory, L4 working/product) with the
+      "where am I / where do I go / what do I do / what rules apply / what am I working
+      with" questions and the L3-vs-L4 distinction (factory vs product, recipe vs
+      ingredients). Source of truth: `source/icm-paper-extracted.txt` §3.1–3.2.
+  - id: P1.T3.S2
+    text: |
+      Write `icm-core/conventions.md`: folder naming (`stages/NN_slug/`, two-digit
+      contiguous from 01), the stage-contract format (`## Inputs` with L3/L4 split, each
+      line tagged `(reference)` or `(working)`; `## Process`; `## Outputs` with
+      `name -> output/`), `references/`+`output/` per stage, `_config/`+`shared/`+`setup/`
+      at workspace root, and the rule that contracts name NO harness (relative paths
+      only). These are exactly the rules the validator (T2) enforces — keep them in sync.
+  - id: P1.T3.S3
+    text: |
+      Write `icm-core/portability.md`: the shim registry. A table with one row per shim —
+      `AGENTS.md` (canonical, real content), `CLAUDE.md`, `GEMINI.md`,
+      `.github/copilot-instructions.md` (each a one-line redirect to AGENTS.md). Include
+      the verbatim one-line redirect template. Add an "Adding a harness" procedure and
+      three placeholder rows for Pi / Antigravity / Hermes marked
+      `status: verify-convention-first` (NOT active). Note that both the icm-fr tool and
+      every generated workspace draw their shim set from this file.
+- number: 4
+  title: Templates
+  steps:
+  - id: P1.T4.S1
+    text: |
+      Create `icm-core/templates/workspace/` skeleton: `AGENTS.md` (Layer-0 identity stub
+      with placeholders `{{WORKSPACE_NAME}}`, `{{PURPOSE}}`, a "Structure" section listing
+      stages, and a "Where to find things" map), `CONTEXT.md` (Layer-1 task-routing stub),
+      the 4 shim files (each the one-line redirect from portability.md), and empty
+      `_config/.gitkeep`, `shared/.gitkeep`, `setup/questionnaire.md` stub.
+  - id: P1.T4.S2
+    text: |
+      Create `icm-core/templates/stage/CONTEXT.md`: the Layer-2 contract template with the
+      three required headers and inline guidance comments —
+      `## Inputs` (example lines for one `(reference)` and one `(working)`),
+      `## Process` (numbered steps placeholder), `## Outputs` (`artifact.md -> output/`).
+      Plus sibling `references/.gitkeep` and `output/.gitkeep`.
+- number: 5
+  title: Canonical example workspace
+  steps:
+  - id: P1.T5.S1
+    text: |
+      Build `icm-core/example/` — a small, hand-written, CORRECT 2-stage ICM workspace
+      (pick a trivially understandable pipeline, e.g. `01_outline` -> `02_draft` for a
+      short blog post). Real AGENTS.md, all 4 shims, both stage CONTEXT.md contracts with
+      genuine Inputs/Process/Outputs, a sample `_config/voice.md` (L3) and a seeded
+      `01_outline/output/` artifact. This triples as: the reference `advise` measures
+      against, the shape templates produce, and a human's ICM tutorial.
+  - id: P1.T5.S2
+    text: |
+      Validate the example: `python icm-core/validate.py icm-core/example` → exit 0, zero
+      error findings. Fix the example (not the validator) if anything trips.
+- number: 6
+  title: Repo doorways + README
+  steps:
+  - id: P1.T6.S1
+    text: |
+      Create the tool's own doorways at repo root: `AGENTS.md` (canonical — describes the
+      icm-fr tool, points to `procedures/` for the three modes and to `icm-core/` for the
+      methodology), and the 3 shims `CLAUDE.md`, `GEMINI.md`,
+      `.github/copilot-instructions.md` (one-line redirects to root AGENTS.md).
+  - id: P1.T6.S2
+    text: |
+      Create `SKILL.md` (Claude Code skill doorway) with YAML frontmatter (`name: icm-fr`,
+      a `description` covering the three triggers: convert a skill/ruleset/plugin to ICM,
+      scaffold a new ICM workspace, advise on an existing one) and a body that routes to
+      `procedures/convert.md` | `scaffold.md` | `advise.md`. Leave the procedures
+      referenced (they land in phases 2-4); the router can name them ahead of existence.
+  - id: P1.T6.S3
+    text: |
+      Write `README.md`: what ICM is (one paragraph + link to the arXiv paper and
+      `source/`), what icm-fr does (three modes), the agent-agnostic premise, repo map,
+      and MIT license note. Commit the phase.
+state:
+  steps:
+    P1.T1.S1:
+      state: ' '
+      ticked_at: null
+      note: null
+    P1.T2.S1:
+      state: ' '
+      ticked_at: null
+      note: null
+    P1.T3.S1:
+      state: ' '
+      ticked_at: null
+      note: null
+    P1.T3.S2:
+      state: ' '
+      ticked_at: null
+      note: null
+    P1.T3.S3:
+      state: ' '
+      ticked_at: null
+      note: null
+    P1.T4.S1:
+      state: ' '
+      ticked_at: null
+      note: null
+    P1.T4.S2:
+      state: ' '
+      ticked_at: null
+      note: null
+    P1.T5.S1:
+      state: ' '
+      ticked_at: null
+      note: null
+    P1.T5.S2:
+      state: ' '
+      ticked_at: null
+      note: null
+    P1.T6.S1:
+      state: ' '
+      ticked_at: null
+      note: null
+    P1.T6.S2:
+      state: ' '
+      ticked_at: null
+      note: null
+    P1.T6.S3:
+      state: ' '
+      ticked_at: null
+      note: null
+  completion:
+    at: null
+    note: null
+    observed_prs: []

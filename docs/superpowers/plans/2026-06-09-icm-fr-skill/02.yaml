@@ -1,0 +1,68 @@
+schema_version: 2
+phase:
+  number: 2
+  title: Convert mode + news-report worked conversion
+  tag: agentic
+  depends_on:
+  - 1
+  tracking_issue: null
+tasks:
+- number: 1
+  title: Write the convert procedure
+  steps:
+  - id: P2.T1.S1
+    text: |
+      Write `procedures/convert.md`: the documented procedure an agent follows. Preamble:
+      load `icm-core/principles.md` + `conventions.md` + `portability.md`. Then the four
+      steps from the spec — (1) Ingest target; (2) Decompose into stages + CLASSIFY every
+      piece as stage / Layer-3 reference / Layer-4 working / local-script; (3) Emit the
+      numbered workspace from `icm-core/templates/` incl. AGENTS.md + 4 shims; (4) write
+      `CONVERSION_NOTES.md` gap report. Explicitly instruct: event-driven hooks and
+      AI-driven mid-pipeline branching do NOT map to stages — surface them in the gap
+      report, never silently drop. End with "run `python icm-core/validate.py <out>` and
+      fix the output until clean."
+- number: 2
+  title: Convert news-report (the worked integration test)
+  steps:
+  - id: P2.T2.S1
+    text: |
+      Following `procedures/convert.md`, ingest the willikins `news-report` skill (read it
+      from `/home/claude/repos/willikins/.claude/skills/news-report/`). Produce the ICM
+      workspace at `conversions/news-report/` in this repo. Expect stages along the lines
+      of `01_watchlist` -> `02_fetch` -> `03_summarize` -> `04_assemble`; classify the
+      topic/watchlist config as L3 reference, fetched articles as L4 working, assembly
+      logic as stage process.
+  - id: P2.T2.S2
+    text: |
+      Write `conversions/news-report/CONVERSION_NOTES.md`: every non-mechanical judgment
+      call, anything in news-report that did NOT map cleanly (note if it uses subagent
+      fan-out — that is an orchestration detail to record), and the human last-mile edits.
+  - id: P2.T2.S3
+    text: |
+      Acceptance: `python icm-core/validate.py conversions/news-report` exits 0; then a
+      human read-through against the spec's acceptance bar (correct stages + contracts;
+      correct L3/L4 classification; AGENTS.md + 4 shims present; gap report names every
+      judgment call). Record the checklist result at the top of CONVERSION_NOTES.md.
+      Commit the phase.
+state:
+  steps:
+    P2.T1.S1:
+      state: ' '
+      ticked_at: null
+      note: null
+    P2.T2.S1:
+      state: ' '
+      ticked_at: null
+      note: null
+    P2.T2.S2:
+      state: ' '
+      ticked_at: null
+      note: null
+    P2.T2.S3:
+      state: ' '
+      ticked_at: null
+      note: null
+  completion:
+    at: null
+    note: null
+    observed_prs: []

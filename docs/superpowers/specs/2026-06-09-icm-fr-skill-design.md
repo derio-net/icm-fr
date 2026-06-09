@@ -174,6 +174,12 @@ acceptance bar above.
 - Automated mid-pipeline branching (outside ICM's fit envelope).
 - Converting event-driven hooks into stages (flagged by `convert`, not supported).
 
+## Implementation Plans
+
+| Plan | Repo | Status | Notes |
+|------|------|--------|-------|
+| 2026-06-09-icm-fr-skill | `derio-net/icm-fr` | `2026-06-09-icm-fr-skill` | — |
+
 ## Open questions
 
 - GitHub remote creation (`derio-net/icm-fr`) is deferred until the operator says go (outward-facing).

@@ -1,0 +1,45 @@
+schema_version: 2
+phase:
+  number: 4
+  title: Advise mode
+  tag: agentic
+  depends_on:
+  - 1
+  tracking_issue: null
+tasks:
+- number: 1
+  title: Write the advise procedure
+  steps:
+  - id: P4.T1.S1
+    text: |
+      Write `procedures/advise.md`: non-generative review. Load principles+conventions,
+      then walk a checklist against the target workspace — stage doing two jobs? reference
+      and working artifacts mixed in one Inputs block? context bloat (a stage loading files
+      it doesn't use)? missing review gate between stages? non-contiguous numbering?
+      harness names leaking into contracts? Output a findings list (severity + location +
+      fix), NOT edited files. Note that the structural subset overlaps `validate.py` —
+      advise runs the validator first, then adds the judgment-level findings it can't check
+      mechanically.
+- number: 2
+  title: Exercise advise on real workspaces
+  steps:
+  - id: P4.T2.S1
+    text: |
+      Run `procedures/advise.md` against both `icm-core/example` (should be near-clean —
+      it's the canonical reference) and `conversions/news-report` (expect real findings).
+      Save the news-report review to `conversions/news-report/ADVISE_FINDINGS.md` as a
+      worked example of the mode. Commit the phase.
+state:
+  steps:
+    P4.T1.S1:
+      state: ' '
+      ticked_at: null
+      note: null
+    P4.T2.S1:
+      state: ' '
+      ticked_at: null
+      note: null
+  completion:
+    at: null
+    note: null
+    observed_prs: []

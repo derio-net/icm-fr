@@ -1,0 +1,44 @@
+schema_version: 2
+phase:
+  number: 3
+  title: Scaffold mode
+  tag: agentic
+  depends_on:
+  - 1
+  tracking_issue: null
+tasks:
+- number: 1
+  title: Write the scaffold procedure
+  steps:
+  - id: P3.T1.S1
+    text: |
+      Write `procedures/scaffold.md`: same generation engine as convert, but an INTERVIEW
+      replaces ingest+decompose. Steps — Discovery (domain, the workflow, who reviews),
+      Stage-mapping (natural sequential breakpoints, one stage/one job), Emit from
+      `icm-core/templates/` (AGENTS.md + 4 shims + numbered stages), Questionnaire design
+      (what `setup/questionnaire.md` should ask so `_config/` L3 gets populated on first
+      run). End with the validate-until-clean instruction.
+- number: 2
+  title: Scaffold a throwaway workspace to prove the procedure
+  steps:
+  - id: P3.T2.S1
+    text: |
+      Dry-run scaffold from a canned 2-line brief (e.g. "weekly competitor-pricing
+      digest"): follow `procedures/scaffold.md` to emit `conversions/_scaffold-smoke/`,
+      run `python icm-core/validate.py conversions/_scaffold-smoke` → exit 0. This is a
+      smoke test of the procedure, not a kept artifact — note it as disposable in a
+      one-line README inside the folder. Commit the phase.
+state:
+  steps:
+    P3.T1.S1:
+      state: ' '
+      ticked_at: null
+      note: null
+    P3.T2.S1:
+      state: ' '
+      ticked_at: null
+      note: null
+  completion:
+    at: null
+    note: null
+    observed_prs: []

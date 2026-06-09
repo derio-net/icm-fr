@@ -1,0 +1,39 @@
+schema_version: 2
+phase:
+  number: 5
+  title: '[manual] Publish to derio-net/icm-fr'
+  tag: manual
+  depends_on:
+  - 2
+  - 3
+  - 4
+  tracking_issue: null
+tasks:
+- number: 1
+  title: Create remote and push (operator-gated)
+  steps:
+  - id: P5.T1.S1
+    text: |
+      OPERATOR GO REQUIRED (outward-facing). Create the public repo:
+      `gh repo create derio-net/icm-fr --public --description "Interpretable Context
+      Methodology — agent-agnostic ICM workspaces (convert/scaffold/advise)"`.
+  - id: P5.T1.S2
+    text: |
+      `git remote add origin git@github.com:derio-net/icm-fr.git` (or https), push main,
+      set topics (`ai-agents`, `context-engineering`, `icm`), confirm the MIT LICENSE and
+      README render on GitHub. Decide at this point whether converted workspaces stay in
+      `conversions/` as examples or move back to their home repos (spec open question).
+state:
+  steps:
+    P5.T1.S1:
+      state: ' '
+      ticked_at: null
+      note: null
+    P5.T1.S2:
+      state: ' '
+      ticked_at: null
+      note: null
+  completion:
+    at: null
+    note: null
+    observed_prs: []
