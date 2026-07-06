@@ -176,7 +176,7 @@ acceptance bar above.
 
 ## Implementation Plans
 
-| Plan | Repo | Status | Notes |
+| Plan | Repo | File | Depends on |
 |------|------|--------|-------|
 | 2026-06-09-icm-fr-skill | `derio-net/icm-fr` | Complete | All 5 phases shipped; published 2026-06-09 |
 
