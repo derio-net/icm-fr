@@ -1,0 +1,35 @@
+# Acceptance matrix — the registry of business-level acceptance tests and
+# where each is verified. Rendered by `fr acceptance report`; no CI is configured,
+# so `fr acceptance check` runs locally and no row is `ci`.
+#
+# Row schema:
+#   id:         kebab-case, stable
+#   capability: grouping (tables render in first-seen order)
+#   acceptance: the business-level statement
+#   origin:     list of "repo:path[#anchor]" refs (spec §, design doc)
+#   levels:     unit/api/int/ui → list of "repo:path[#test_name]" test refs
+#               (a .py fragment names a test, pytest-style: #TestX::test_y —
+#               never a #L<n> line, which rots as code moves; gh#531)
+#               ([] = level does not verify this row)
+#   status:     ci | scheduled | unwired | walk-owed | walked | manual
+#               | not-implemented | failing
+#     ci               automated on every PR — cannot drift silently
+#     scheduled        automated on cron/path triggers
+#     unwired          a test exists but does not run in CI → debt, CI warning
+#     walk-owed        a live or post-merge walk is owed → debt, CI warning
+#     walked           proven live, dated by its latest passing walk
+#     manual           a process that is never automatable
+#     not-implemented  no test or surface exists yet → debt, CI warning
+#     failing          known red → `fr acceptance check` exits 2, CI FAILS
+#   notes:      evidence detail, drift context
+#
+# Rule: .claude/rules/acceptance-matrix.md — update rows in the SAME PR that
+# changes a Test Plan, adds tests, ships a surface, or touches CI.
+# Add rows with `fr acceptance add` (schema-validated). It inserts a row after
+# the last row of the same capability, and appends to the end of this file only
+# for a new capability — so keep `rows:` as the LAST top-level key.
+
+schema_version: 5
+org: derio-net
+repo: icm-fr
+rows:
