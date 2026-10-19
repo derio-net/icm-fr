@@ -12,7 +12,17 @@ steps:
     emitted:
       spec: docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md
   spec-review:
-    state: pending
+    state: running
+    at: '2026-10-19T21:19:09+00:00'
+    units:
+      step/spec-review:
+        attempts:
+        - dispatched: '2026-10-19T21:19:09+00:00'
+          agent_type: super-fr:fr-spec-reviewer
+          harness: claude-code
+          tier: hard
+          bound: opus
+          session: adee77ef-bcdb-421c-b000-b1229f8bbb64
   plan:
     state: pending
   plan-review:
