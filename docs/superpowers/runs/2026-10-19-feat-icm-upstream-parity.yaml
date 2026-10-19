@@ -3,11 +3,14 @@ run: 2026-10-19-feat-icm-upstream-parity
 workflow: fr-goal@1
 branch: feat/icm-upstream-parity
 started: '2026-10-19T19:43:54+00:00'
-cursor: brainstorm
+cursor: spec-review
 steps:
   brainstorm:
-    state: blocked
-    at: '2026-10-19T19:44:12+00:00'
+    state: done
+    at: '2026-10-19T21:19:06+00:00'
+    answered_by: operator
+    emitted:
+      spec: docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md
   spec-review:
     state: pending
   plan:
