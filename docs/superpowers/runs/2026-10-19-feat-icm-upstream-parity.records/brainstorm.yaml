@@ -16,7 +16,7 @@ journal:
     title: Upstream ICM repos are far ahead of icm-fr
     body: RinDig/Interpretable-Context-Methodology (_core/CONVENTIONS.md, 15 patterns, table contracts, Checkpoints/Audit) and RinDig/icm-architect (10 invariants, six forms, restructure mode, reference-integrity gate), both MIT, fetched 2026-10-19. source/ already holds paper v2.
   - {kind: decision, id: d-forms, title: Support all six forms, body: "Pipeline, umbrella, record library, knowledge bundle, context map, system map."}
-  - {kind: decision, id: d-contracts, title: Tables canonical, lists accepted with warning, body: "In-repo workspaces migrate to tables."}
+  - {kind: decision, id: d-contracts, title: "Tables canonical, lists accepted with warning", body: "In-repo workspaces migrate to tables."}
   - {kind: decision, id: d-modes, title: "Add restructure mode, setup/status triggers, audit-first scaffold", body: "All three selected."}
   - {kind: decision, id: d-verify, title: Fixtures plus a new CI workflow, body: "No install program, so rows use strategy none, proved by test_validate.py in GitHub Actions."}
   - {kind: decision, id: d-naming, title: Switch stage naming to NN-slug, body: "Underscore stage folders become a validator error; in-repo workspaces migrate."}
