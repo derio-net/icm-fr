@@ -1,0 +1,26 @@
+schema_version: 10
+run: 2026-10-19-feat-icm-upstream-parity
+workflow: fr-goal@1
+branch: feat/icm-upstream-parity
+started: '2026-10-19T19:43:54+00:00'
+cursor: brainstorm
+steps:
+  brainstorm:
+    state: pending
+  spec-review:
+    state: pending
+  plan:
+    state: pending
+  plan-review:
+    state: pending
+  implement:
+    state: pending
+    members:
+    - implement-phase
+    - review-phase
+  journal-check:
+    state: pending
+  deliver:
+    state: pending
+driver: standalone
+fr_version: 5.27.0rc3
