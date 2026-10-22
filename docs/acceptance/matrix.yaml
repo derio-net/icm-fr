@@ -41,7 +41,8 @@ rows:
     origin:
     - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R1
     - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R2
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R5
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R3
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R8
     levels: {}
     status: not-implemented
     notes: ''
@@ -51,8 +52,8 @@ rows:
     acceptance: Checkpoints, Audit (with attempt budget), Verify and Human check sections
       are recognised and a malformed one is reported.
     origin:
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R3
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R4
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R5
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R6
     levels: {}
     status: not-implemented
     notes: ''
@@ -62,7 +63,8 @@ rows:
     acceptance: Stage folders named NN-slug validate; an NN_slug folder is rejected
       with the hyphen name suggested.
     origin:
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R6
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R11
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R13
     levels: {}
     status: not-implemented
     notes: ''
@@ -73,9 +75,10 @@ rows:
       outside the stage's own output/, and a reference folder linking into a stage are
       each reported.
     origin:
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R8
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R4
     - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R9
     - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R10
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R12
     levels: {}
     status: not-implemented
     notes: ''
@@ -85,7 +88,8 @@ rows:
     acceptance: A workspace's declared form selects its structural checks; no declaration
       means pipeline with a warning, an unknown form is an error.
     origin:
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R13
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R17
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R22
     levels: {}
     status: not-implemented
     notes: ''
@@ -95,7 +99,7 @@ rows:
     acceptance: An umbrella workspace validates each child pipeline as a full workspace
       and flags a child that references a sibling.
     origin:
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R14
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R18
     levels: {}
     status: not-implemented
     notes: ''
@@ -105,7 +109,7 @@ rows:
     acceptance: A record library needs a record template and index log, and a record
       that drifts from the template's shape is flagged.
     origin:
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R15
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R19
     levels: {}
     status: not-implemented
     notes: ''
@@ -115,7 +119,7 @@ rows:
     acceptance: Knowledge bundles and context maps need a schema of node types, and
       a note with a missing or unknown type is flagged.
     origin:
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R16
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R20
     levels: {}
     status: not-implemented
     notes: ''
@@ -126,7 +130,7 @@ rows:
       empty processes/ or effects/ folders, and may not mark a card verified without
       a citation and date.
     origin:
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R17
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R21
     levels: {}
     status: not-implemented
     notes: ''
@@ -137,9 +141,9 @@ rows:
       malformed conditional sections are rejected, and generated workspaces offer setup
       and status triggers backed by a rule-following questionnaire.
     origin:
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R18
     - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R23
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R24
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R29
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R30
     levels: {}
     status: not-implemented
     notes: ''
@@ -149,7 +153,7 @@ rows:
     acceptance: A status script shows each pipeline stage as COMPLETE with its files
       or PENDING.
     origin:
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R22
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R28
     levels: {}
     status: not-implemented
     notes: ''
@@ -159,8 +163,9 @@ rows:
     acceptance: Oversized routing, reference and entry files, em dashes, duplicated
       facts across reference files and empty folders without .gitkeep are warned.
     origin:
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R19
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R20
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R24
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R25
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R26
     levels: {}
     status: not-implemented
     notes: ''
@@ -170,7 +175,7 @@ rows:
     acceptance: The validator can emit every finding as JSON with level, code, path
       and message.
     origin:
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R21
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R27
     levels: {}
     status: not-implemented
     notes: ''
@@ -182,11 +187,10 @@ rows:
       with citations.
     origin:
     - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R7
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R11
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R12
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R25
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R29
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R36
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R14
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R15
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R16
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R34
     levels: {}
     status: not-implemented
     notes: ''
@@ -197,10 +201,10 @@ rows:
       scaffold and convert pick a form first, restructure migrates a folder in place
       behind a reference-integrity gate, and advise runs the maintenance checks.
     origin:
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R26
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R27
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R28
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R31
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R32
     - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R33
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R35
     levels: {}
     status: not-implemented
     notes: ''
@@ -208,12 +212,13 @@ rows:
   - id: icm-examples-migrated
     capability: Templates and examples
     acceptance: Templates exist for every form, a canonical example exists for every
-      form, and every in-repo example and conversion validates with no errors under
-      the new rules.
+      form, and every in-repo example and conversion validates with no errors and
+      no warnings under the new rules.
     origin:
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R30
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R31
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R32
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R36
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R37
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R38
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R39
     levels: {}
     status: not-implemented
     notes: ''
@@ -223,8 +228,8 @@ rows:
     acceptance: Every pull request runs the validator tests and validates every in-repo
       workspace, and no build artifacts are tracked.
     origin:
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R34
-    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R35
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R40
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R41
     levels: {}
     status: not-implemented
     notes: ''
