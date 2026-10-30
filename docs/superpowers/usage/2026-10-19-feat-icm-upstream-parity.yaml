@@ -1,0 +1,159 @@
+schema_version: 2
+run: 2026-10-19-feat-icm-upstream-parity
+captures:
+- host: h-be4adcaf
+  harness: claude-code
+  mode: devcontainer
+  captured_at: '2026-10-19T21:19:07+00:00'
+  at:
+  - resolve:brainstorm
+  sessions:
+  - session: adee77ef-bcdb-421c-b000-b1229f8bbb64
+    role: main
+    models:
+      claude-opus-5-5:
+        input: 114
+        cache_write: 397665
+        cache_read: 8911053
+        output: 43892
+        usd: null
+        usd_source: none
+    activity:
+      implementation:
+        usd: null
+        turns: 4
+      other:
+        usd: null
+        turns: 40
+      paperwork:
+        usd: null
+        turns: 14
+    steps:
+      (outside run):
+        usd: null
+        turns: 35
+        input: 70
+        cache_write: 142115
+        cache_read: 4631614
+        output: 16849
+      brainstorm:
+        usd: null
+        turns: 22
+        input: 44
+        cache_write: 255550
+        cache_read: 4279439
+        output: 27043
+    steps_by_role:
+      main:
+        (outside run):
+          usd: null
+          turns: 35
+          input: 70
+          cache_write: 142115
+          cache_read: 4631614
+          output: 16849
+        brainstorm:
+          usd: null
+          turns: 22
+          input: 44
+          cache_write: 255550
+          cache_read: 4279439
+          output: 27043
+- host: h-9ed59050
+  harness: claude-code
+  mode: devcontainer
+  captured_at: '2026-10-22T05:04:35+00:00'
+  at:
+  - resolve:spec-review
+  sessions:
+  - session: adee77ef-bcdb-421c-b000-b1229f8bbb64
+    role: main
+    models:
+      claude-opus-5-5:
+        input: 212
+        cache_write: 1006423
+        cache_read: 15245488
+        output: 70906
+        usd: null
+        usd_source: none
+    activity:
+      implementation:
+        usd: null
+        turns: 4
+      other:
+        usd: null
+        turns: 75
+      paperwork:
+        usd: null
+        turns: 31
+    steps:
+      (outside run):
+        usd: null
+        turns: 35
+        input: 70
+        cache_write: 142115
+        cache_read: 4631614
+        output: 16849
+      brainstorm:
+        usd: null
+        turns: 22
+        input: 44
+        cache_write: 255550
+        cache_read: 4279439
+        output: 27043
+      spec-review:
+        usd: null
+        turns: 48
+        input: 98
+        cache_write: 608758
+        cache_read: 6334435
+        output: 27014
+    steps_by_role:
+      main:
+        (outside run):
+          usd: null
+          turns: 35
+          input: 70
+          cache_write: 142115
+          cache_read: 4631614
+          output: 16849
+        brainstorm:
+          usd: null
+          turns: 22
+          input: 44
+          cache_write: 255550
+          cache_read: 4279439
+          output: 27043
+        spec-review:
+          usd: null
+          turns: 17
+          input: 36
+          cache_write: 497295
+          cache_read: 4063803
+          output: 26399
+      subagent:
+        spec-review:
+          usd: null
+          turns: 31
+          input: 62
+          cache_write: 111463
+          cache_read: 2270632
+          output: 615
+    units:
+      step/spec-review:
+        orchestrator:
+          usd: null
+          turns: 17
+          input: 36
+          cache_write: 497295
+          cache_read: 4063803
+          output: 26399
+        agent:
+          usd: null
+          turns: 31
+          input: 62
+          cache_write: 111463
+          cache_read: 2270632
+          output: 615
+    briefs:
+      step/spec-review: 1991

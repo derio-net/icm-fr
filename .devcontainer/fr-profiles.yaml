@@ -1,0 +1,12 @@
+schema_version: 2
+profiles:
+  dev:
+    purpose: 'day-to-day development: python3 icm-core/validate.py <ws>; python3 icm-core/test_validate.py'
+    secrets: []
+default: dev
+forge:
+  type: github
+ci:
+  type: none
+tracking:
+  type: github

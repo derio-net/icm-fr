@@ -1,0 +1,56 @@
+schema_version: 10
+run: 2026-10-19-feat-icm-upstream-parity
+workflow: fr-goal@1
+branch: feat/icm-upstream-parity
+started: '2026-10-19T19:43:54+00:00'
+cursor: plan
+steps:
+  brainstorm:
+    state: done
+    at: '2026-10-19T21:19:06+00:00'
+    answered_by: operator
+    emitted:
+      spec: docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md
+  spec-review:
+    state: done
+    at: '2026-10-22T05:04:30+00:00'
+    units:
+      step/spec-review:
+        attempts:
+        - dispatched: '2026-10-19T21:19:09+00:00'
+          agent: a9b52dee1846fc48f
+          agent_type: super-fr:fr-spec-reviewer
+          harness: claude-code
+          model: claude-opus-5-5
+          tier: hard
+          bound: opus
+          session: adee77ef-bcdb-421c-b000-b1229f8bbb64
+          returned: '2026-10-22T05:04:30+00:00'
+          outcome: done
+        evidence:
+          review: spec-review
+          reviewer: a9b52dee1846fc48f
+          findings: s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s17,s18,s19,s20,s21
+  plan:
+    state: running
+    at: '2026-10-22T05:04:36+00:00'
+    units:
+      step/plan:
+        attempts:
+        - dispatched: '2026-10-22T05:04:36+00:00'
+          harness: claude-code
+          model: claude-opus-5-5
+          session: adee77ef-bcdb-421c-b000-b1229f8bbb64
+  plan-review:
+    state: pending
+  implement:
+    state: pending
+    members:
+    - implement-phase
+    - review-phase
+  journal-check:
+    state: pending
+  deliver:
+    state: pending
+driver: standalone
+fr_version: 5.27.0rc3

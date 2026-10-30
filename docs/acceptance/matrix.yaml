@@ -1,0 +1,236 @@
+# Acceptance matrix — the registry of business-level acceptance tests and
+# where each is verified. Rendered by `fr acceptance report`; no CI is configured,
+# so `fr acceptance check` runs locally and no row is `ci`.
+#
+# Row schema:
+#   id:         kebab-case, stable
+#   capability: grouping (tables render in first-seen order)
+#   acceptance: the business-level statement
+#   origin:     list of "repo:path[#anchor]" refs (spec §, design doc)
+#   levels:     unit/api/int/ui → list of "repo:path[#test_name]" test refs
+#               (a .py fragment names a test, pytest-style: #TestX::test_y —
+#               never a #L<n> line, which rots as code moves; gh#531)
+#               ([] = level does not verify this row)
+#   status:     ci | scheduled | unwired | walk-owed | walked | manual
+#               | not-implemented | failing
+#     ci               automated on every PR — cannot drift silently
+#     scheduled        automated on cron/path triggers
+#     unwired          a test exists but does not run in CI → debt, CI warning
+#     walk-owed        a live or post-merge walk is owed → debt, CI warning
+#     walked           proven live, dated by its latest passing walk
+#     manual           a process that is never automatable
+#     not-implemented  no test or surface exists yet → debt, CI warning
+#     failing          known red → `fr acceptance check` exits 2, CI FAILS
+#   notes:      evidence detail, drift context
+#
+# Rule: .claude/rules/acceptance-matrix.md — update rows in the SAME PR that
+# changes a Test Plan, adds tests, ships a surface, or touches CI.
+# Add rows with `fr acceptance add` (schema-validated). It inserts a row after
+# the last row of the same capability, and appends to the end of this file only
+# for a new capability — so keep `rows:` as the LAST top-level key.
+
+schema_version: 5
+org: derio-net
+repo: icm-fr
+rows:
+  - id: icm-contract-tables
+    capability: Stage contracts
+    acceptance: A stage contract written with Inputs/Outputs tables (section-scoped
+      inputs, optional Do-not-load line) validates; a legacy list-form contract still
+      validates with a warning.
+    origin:
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R1
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R2
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R3
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R8
+    levels: {}
+    status: not-implemented
+    notes: ''
+    verify: none
+  - id: icm-optional-sections
+    capability: Stage contracts
+    acceptance: Checkpoints, Audit (with attempt budget), Verify and Human check sections
+      are recognised and a malformed one is reported.
+    origin:
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R5
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R6
+    levels: {}
+    status: not-implemented
+    notes: ''
+    verify: none
+  - id: icm-stage-naming
+    capability: Stage contracts
+    acceptance: Stage folders named NN-slug validate; an NN_slug folder is rejected
+      with the hyphen name suggested.
+    origin:
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R11
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R13
+    levels: {}
+    status: not-implemented
+    notes: ''
+    verify: none
+  - id: icm-path-rules
+    capability: Stage contracts
+    acceptance: A working input pointing at a later or the same stage, an output written
+      outside the stage's own output/, and a reference folder linking into a stage are
+      each reported.
+    origin:
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R4
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R9
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R10
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R12
+    levels: {}
+    status: not-implemented
+    notes: ''
+    verify: none
+  - id: icm-form-declaration
+    capability: Workspace forms
+    acceptance: A workspace's declared form selects its structural checks; no declaration
+      means pipeline with a warning, an unknown form is an error.
+    origin:
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R17
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R22
+    levels: {}
+    status: not-implemented
+    notes: ''
+    verify: none
+  - id: icm-umbrella-form
+    capability: Workspace forms
+    acceptance: An umbrella workspace validates each child pipeline as a full workspace
+      and flags a child that references a sibling.
+    origin:
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R18
+    levels: {}
+    status: not-implemented
+    notes: ''
+    verify: none
+  - id: icm-record-library-form
+    capability: Workspace forms
+    acceptance: A record library needs a record template and index log, and a record
+      that drifts from the template's shape is flagged.
+    origin:
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R19
+    levels: {}
+    status: not-implemented
+    notes: ''
+    verify: none
+  - id: icm-graph-forms
+    capability: Workspace forms
+    acceptance: Knowledge bundles and context maps need a schema of node types, and
+      a note with a missing or unknown type is flagged.
+    origin:
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R20
+    levels: {}
+    status: not-implemented
+    notes: ''
+    verify: none
+  - id: icm-system-map-form
+    capability: Workspace forms
+    acceptance: A system map needs its catalog, schema and object index, may not keep
+      empty processes/ or effects/ folders, and may not mark a card verified without
+      a citation and date.
+    origin:
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R21
+    levels: {}
+    status: not-implemented
+    notes: ''
+    verify: none
+  - id: icm-setup-placeholders
+    capability: Setup and status
+    acceptance: Leftover placeholders are warned before setup and rejected after it,
+      malformed conditional sections are rejected, and generated workspaces offer setup
+      and status triggers backed by a rule-following questionnaire.
+    origin:
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R23
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R29
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R30
+    levels: {}
+    status: not-implemented
+    notes: ''
+    verify: none
+  - id: icm-status-script
+    capability: Setup and status
+    acceptance: A status script shows each pipeline stage as COMPLETE with its files
+      or PENDING.
+    origin:
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R28
+    levels: {}
+    status: not-implemented
+    notes: ''
+    verify: none
+  - id: icm-guardrails
+    capability: Validator
+    acceptance: Oversized routing, reference and entry files, em dashes, duplicated
+      facts across reference files and empty folders without .gitkeep are warned.
+    origin:
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R24
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R25
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R26
+    levels: {}
+    status: not-implemented
+    notes: ''
+    verify: none
+  - id: icm-json-output
+    capability: Validator
+    acceptance: The validator can emit every finding as JSON with level, code, path
+      and message.
+    origin:
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R27
+    levels: {}
+    status: not-implemented
+    notes: ''
+    verify: none
+  - id: icm-methodology-docs
+    capability: Methodology
+    acceptance: The methodology documents cover the upstream conventions, invariants,
+      six forms, audit-first discovery and the enforcement ladder in original wording
+      with citations.
+    origin:
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R7
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R14
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R15
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R16
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R34
+    levels: {}
+    status: not-implemented
+    notes: ''
+    verify: none
+  - id: icm-procedures
+    capability: Modes
+    acceptance: The tool offers four modes (convert, scaffold, advise, restructure);
+      scaffold and convert pick a form first, restructure migrates a folder in place
+      behind a reference-integrity gate, and advise runs the maintenance checks.
+    origin:
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R31
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R32
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R33
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R35
+    levels: {}
+    status: not-implemented
+    notes: ''
+    verify: none
+  - id: icm-examples-migrated
+    capability: Templates and examples
+    acceptance: Templates exist for every form, a canonical example exists for every
+      form, and every in-repo example and conversion validates with no errors and
+      no warnings under the new rules.
+    origin:
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R36
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R37
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R38
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R39
+    levels: {}
+    status: not-implemented
+    notes: ''
+    verify: none
+  - id: icm-hygiene-ci
+    capability: Repo health
+    acceptance: Every pull request runs the validator tests and validates every in-repo
+      workspace, and no build artifacts are tracked.
+    origin:
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R40
+    - icm-fr:docs/superpowers/specs/2026-10-19-icm-upstream-parity-design.md#R41
+    levels: {}
+    status: not-implemented
+    notes: ''
+    verify: none
